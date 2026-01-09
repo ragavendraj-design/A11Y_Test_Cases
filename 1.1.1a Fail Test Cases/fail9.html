@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WCAG 1.1.1a Fail Example 9</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      /* Simple styling to constrain the chart size */
+      .chart-container {
+        width: 800px;
+        margin: 50px auto;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WCAG 1.1.1a Fail Example 9</h1>
+    <div class="chart-container">
+      <h2>Q1 Sales Performance</h2>
+
+      <a href="/chart">
+        <canvas id="graph" aria-label="Sales chart"></canvas>
+      </a>
+    </div>
+
+    <script>
+      // 2. Get the canvas element
+      const ctx = document.getElementById("graph").getContext("2d");
+
+      // 3. Define the Mock Data
+      const mockData = {
+        labels: ["January", "February", "March", "April", "May", "June"],
+        datasets: [
+          {
+            label: "Monthly Revenue ($)",
+            data: [12500, 19000, 15000, 22000, 24000, 28500],
+            backgroundColor: "rgba(75, 192, 192, 0.2)", // Light teal fill
+            borderColor: "rgba(75, 192, 192, 1)", // Solid teal line
+            borderWidth: 2,
+            tension: 0.3, // Smooths the curve
+            fill: true, // Fills the area under the line
+          },
+        ],
+      };
+
+      // 4. Initialize the Chart
+      const myChart = new Chart(ctx, {
+        type: "line", // Types: 'bar', 'line', 'pie', 'doughnut'
+        data: mockData,
+        options: {
+          responsive: true,
+          interaction: {
+            mode: "index",
+            intersect: false,
+          },
+          plugins: {
+            legend: {
+              position: "top",
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                // Add dollar sign to Y-axis
+                callback: function (value) {
+                  return "$" + value.toLocaleString();
+                },
+              },
+            },
+          },
+        },
+      });
+    </script>
+    <br role="presentation" />
+    <br role="presentation" />
+    <div>
+      <a href="index.html">Back to Home</a>
+    </div>
+  </body>
+</html>
